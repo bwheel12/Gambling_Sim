@@ -1,0 +1,129 @@
+---
+title: "Roulette Strategy Sim"
+output: html_notebook
+---
+
+Inspired by a family trip to Las Vegas, I wanted to sim popular betting strategies against betting the same every time or simply randomly increasing or decreasing your bet. In summary, you always have a much larger risk of losing than winng. The D'Alembert strategy has the most upside, but the most risk. Randomly increasing or decreasing your bet actually is a good middle of the road strategy in that you don't as often lose all your money, and have maybe a 20% chance of having more money on hand than what you started with. 
+
+
+```{r}
+library(graphics)
+```
+
+
+set initial parameters
+```{r}
+#win prob
+a = 0.48
+#starting money
+money_start = 2000
+#minimum bet
+min_bet = 3
+#starting bet amount
+bet_start = 5
+#bet change by
+bet_delta = 4
+#interations
+iter = 1000
+#sessions
+session = 1000
+```
+
+play the game "standard dalembert"
+```{r}
+strategy = "dalembert"
+maximum_money = c()
+minimum_money = c()
+rounds_in_green = c()
+
+for(j in 1:session){
+
+Results = Play_Session(min_bet, bet_delta, strategy,a,iter,money_start,bet_start)
+
+maximum_money = cbind(maximum_money,Results[[1]])
+minimum_money = cbind(minimum_money,Results[[2]])
+rounds_in_green = cbind(rounds_in_green,Results[[3]])
+}
+
+print(c("The average maximum money was ",mean(maximum_money),"plus or minus", sd(maximum_money)))
+print(c("The average minimum money was ",mean(minimum_money),"plus or minus", sd(minimum_money)))
+print(c("The average rounds in green was ",mean(rounds_in_green),"plus or minus", sd(rounds_in_green)))
+hist(maximum_money)
+hist(minimum_money)
+hist(rounds_in_green)
+
+```
+
+
+play the game "reverse dalembert"
+```{r}
+strategy = "dalembert_rev"
+maximum_money = c()
+minimum_money = c()
+rounds_in_green = c()
+
+for(j in 1:session){
+
+Results = Play_Session(min_bet, bet_delta, strategy,a,iter,money_start,bet_start)
+
+maximum_money = cbind(maximum_money,Results[[1]])
+minimum_money = cbind(minimum_money,Results[[2]])
+rounds_in_green = cbind(rounds_in_green,Results[[3]])
+}
+
+print(c("The average maximum money was ",mean(maximum_money),"plus or minus", sd(maximum_money)))
+print(c("The average minimum money was ",mean(minimum_money),"plus or minus", sd(minimum_money)))
+print(c("The average rounds in green was ",mean(rounds_in_green),"plus or minus", sd(rounds_in_green)))
+hist(maximum_money)
+hist(minimum_money)
+hist(rounds_in_green)
+```
+
+play the game "constant"
+```{r}
+strategy = "constant"
+maximum_money = c()
+minimum_money = c()
+rounds_in_green = c()
+
+for(j in 1:session){
+
+Results = Play_Session(min_bet, bet_delta, strategy,a,iter,money_start,bet_start)
+
+maximum_money = cbind(maximum_money,Results[[1]])
+minimum_money = cbind(minimum_money,Results[[2]])
+rounds_in_green = cbind(rounds_in_green,Results[[3]])
+}
+
+print(c("The average maximum money was ",mean(maximum_money),"plus or minus", sd(maximum_money)))
+print(c("The average minimum money was ",mean(minimum_money),"plus or minus", sd(minimum_money)))
+print(c("The average rounds in green was ",mean(rounds_in_green),"plus or minus", sd(rounds_in_green)))
+hist(maximum_money)
+hist(minimum_money)
+hist(rounds_in_green)
+```
+
+
+play the game "random"
+```{r}
+strategy = "random"
+maximum_money = c()
+minimum_money = c()
+rounds_in_green = c()
+
+for(j in 1:session){
+
+Results = Play_Session(min_bet, bet_delta, strategy,a,iter,money_start,bet_start)
+
+maximum_money = cbind(maximum_money,Results[[1]])
+minimum_money = cbind(minimum_money,Results[[2]])
+rounds_in_green = cbind(rounds_in_green,Results[[3]])
+}
+
+print(c("The average maximum money was ",mean(maximum_money),"plus or minus", sd(maximum_money)))
+print(c("The average minimum money was ",mean(minimum_money),"plus or minus", sd(minimum_money)))
+print(c("The average rounds in green was ",mean(rounds_in_green),"plus or minus", sd(rounds_in_green)))
+hist(maximum_money)
+hist(minimum_money)
+hist(rounds_in_green)
+```
